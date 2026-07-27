@@ -316,7 +316,7 @@ export default function Workbench({ userName }: { userName: string }) {
           <div className="page settingsGrid">
             <article className="panel dataCard"><span className="dataIcon">⇩</span><h3>导出数据备份</h3><p>将当前学生档案与任务下载为 JSON 文件，建议定期备份。</p><button className="primaryBtn" onClick={exportData}>导出备份</button></article>
             <article className="panel dataCard"><span className="dataIcon">↻</span><h3>恢复示例数据</h3><p>重新载入演示数据。此操作会覆盖当前浏览器内的数据。</p><button className="secondaryBtn" onClick={() => { if (confirm("确定覆盖当前数据吗？")) { setStudents(initialStudents); setTasks(initialTasks); toast("示例数据已恢复"); } }}>恢复示例</button></article>
-            <article className="panel privacy"><h3>关于数据存储</h3><p>当前版本的数据保存在设备浏览器中，不会自动上传服务器。因此在手机和电脑上分别打开时，数据不会自动同步。若要实现多端实时共用，需要在正式部署阶段接入账号登录和云数据库。</p></article>
+            <article className="panel privacy"><h3>关于数据存储</h3><p>学生档案与任务数据会保存到当前登录账号的云端空间。手机和电脑使用同一账号登录，即可读取并更新同一份数据；本机仅保留临时缓存和导出备份。</p></article>
           </div>
         )}
       </section>

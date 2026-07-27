@@ -1,9 +1,6 @@
-import Workbench from "./Workbench";
-import { requireChatGPTUser } from "./chatgpt-auth";
+import SupabaseApp from "./SupabaseApp";
+import "./auth.css";
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const user = await requireChatGPTUser("/");
-  return <Workbench userName={user.displayName} />;
+export default function Home() {
+  return <SupabaseApp />;
 }

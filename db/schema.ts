@@ -5,4 +5,3 @@ export const workspaces = sqliteTable("workspaces", {
   payload: text("payload").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
-

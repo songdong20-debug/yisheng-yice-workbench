@@ -7,4 +7,3 @@ export default async function Home() {
   const user = await requireChatGPTUser("/");
   return <Workbench userName={user.displayName} />;
 }
-

@@ -26,7 +26,7 @@ type Task = {
   stage: string;
   due: string;
   done: boolean;
-  priority: "楂? | "涓? | "浣?;
+  priority: "高" | "中" | "低";
 };
 
 const STORAGE_KEY = "yisheng-yice-v3";
@@ -38,34 +38,34 @@ const dateOffset = (days: number) => {
 };
 
 const initialStudents: Student[] = [
-  { id: "s1", name: "鏋楁檽妤?, studentNo: "20250202", grade: "澶т簩", major: "杞欢宸ョ▼2鐝?, direction: "鍗囧", score: 82, failed: 0, examTotal: 12, runCompleted: 7, runTarget: 10, attendanceIssues: 0, focus: true, wellbeing: "杩戞湡鐒﹁檻锛屾寔缁窡杩? },
-  { id: "s2", name: "榛勬€濋綈", studentNo: "20250203", grade: "澶т簩", major: "璁＄畻鏈虹瀛?鐝?, direction: "鍗囧", score: 80, failed: 0, examTotal: 12, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "姝ｅ父" },
-  { id: "s3", name: "鍒樺瓙娑?, studentNo: "20250204", grade: "澶т簩", major: "浜哄伐鏅鸿兘2鐝?, direction: "灏变笟", score: 84, failed: 0, examTotal: 12, runCompleted: 9, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "姝ｅ父" },
-  { id: "s4", name: "闄堝織杩?, studentNo: "20230303", grade: "澶т笁", major: "浜哄伐鏅鸿兘1鐝?, direction: "鍗囧", score: 90, failed: 0, examTotal: 18, runCompleted: 10, runTarget: 10, attendanceIssues: 1, focus: false, wellbeing: "姝ｅ父" },
-  { id: "s5", name: "璧垫槑瀹?, studentNo: "20230304", grade: "澶т笁", major: "杞欢宸ョ▼1鐝?, direction: "灏变笟", score: 76, failed: 1, examTotal: 18, runCompleted: 6, runTarget: 10, attendanceIssues: 0, focus: true, wellbeing: "姝ｅ父" },
-  { id: "s6", name: "鍚存ⅵ鐞?, studentNo: "20230305", grade: "澶т笁", major: "璁＄畻鏈虹瀛?鐝?, direction: "鍗囧", score: 87, failed: 0, examTotal: 18, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "姝ｅ父" },
-  { id: "s7", name: "鐜嬫旦鐒?, studentNo: "20240101", grade: "澶у洓", major: "璁＄畻鏈虹瀛?鐝?, direction: "灏变笟", score: 68, failed: 2, examTotal: 24, runCompleted: 5, runTarget: 10, attendanceIssues: 2, focus: true, wellbeing: "闇€绾﹁皥" },
-  { id: "s8", name: "閮戝嚡鏂?, studentNo: "20240102", grade: "澶у洓", major: "浜哄伐鏅鸿兘1鐝?, direction: "鍗囧", score: 83, failed: 0, examTotal: 24, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "姝ｅ父" },
-  { id: "s9", name: "瀛欎匠鎬?, studentNo: "20240103", grade: "澶у洓", major: "杞欢宸ョ▼1鐝?, direction: "灏变笟", score: 86, failed: 0, examTotal: 24, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "姝ｅ父" },
+  { id: "s1", name: "林晓楠", studentNo: "20250202", grade: "大二", major: "软件工程2班", direction: "升学", score: 82, failed: 0, examTotal: 12, runCompleted: 7, runTarget: 10, attendanceIssues: 0, focus: true, wellbeing: "近期焦虑，持续跟进" },
+  { id: "s2", name: "黄思齐", studentNo: "20250203", grade: "大二", major: "计算机科学1班", direction: "升学", score: 80, failed: 0, examTotal: 12, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "正常" },
+  { id: "s3", name: "刘子涵", studentNo: "20250204", grade: "大二", major: "人工智能2班", direction: "就业", score: 84, failed: 0, examTotal: 12, runCompleted: 9, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "正常" },
+  { id: "s4", name: "陈志远", studentNo: "20230303", grade: "大三", major: "人工智能1班", direction: "升学", score: 90, failed: 0, examTotal: 18, runCompleted: 10, runTarget: 10, attendanceIssues: 1, focus: false, wellbeing: "正常" },
+  { id: "s5", name: "赵明宇", studentNo: "20230304", grade: "大三", major: "软件工程1班", direction: "就业", score: 76, failed: 1, examTotal: 18, runCompleted: 6, runTarget: 10, attendanceIssues: 0, focus: true, wellbeing: "正常" },
+  { id: "s6", name: "吴梦琪", studentNo: "20230305", grade: "大三", major: "计算机科学1班", direction: "升学", score: 87, failed: 0, examTotal: 18, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "正常" },
+  { id: "s7", name: "王浩然", studentNo: "20240101", grade: "大四", major: "计算机科学1班", direction: "就业", score: 68, failed: 2, examTotal: 24, runCompleted: 5, runTarget: 10, attendanceIssues: 2, focus: true, wellbeing: "需约谈" },
+  { id: "s8", name: "郑凯文", studentNo: "20240102", grade: "大四", major: "人工智能1班", direction: "升学", score: 83, failed: 0, examTotal: 24, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "正常" },
+  { id: "s9", name: "孙佳怡", studentNo: "20240103", grade: "大四", major: "软件工程1班", direction: "就业", score: 86, failed: 0, examTotal: 24, runCompleted: 10, runTarget: 10, attendanceIssues: 0, focus: false, wellbeing: "正常" },
 ];
 
 const initialTasks: Task[] = [
-  { id: "t1", studentId: "s1", title: "纭畾绉戠爺鏂瑰悜", stage: "椤圭洰濂犲熀", due: dateOffset(5), done: false, priority: "涓? },
-  { id: "t2", studentId: "s1", title: "鐢虫姤澶у垱椤圭洰", stage: "椤圭洰濂犲熀", due: dateOffset(12), done: false, priority: "楂? },
-  { id: "t3", studentId: "s4", title: "鍙傚姞绠楁硶绔炶禌", stage: "绔炶禌鍐插埡", due: dateOffset(20), done: false, priority: "楂? },
-  { id: "t4", studentId: "s5", title: "鏆戞湡瀹炰範鍑嗗", stage: "绔炶禌鍐插埡", due: dateOffset(8), done: false, priority: "涓? },
-  { id: "t5", studentId: "s7", title: "鎶曢€掔畝鍘?, stage: "姣曚笟鍑哄彛", due: dateOffset(0), done: false, priority: "楂? },
-  { id: "t6", studentId: "s7", title: "瀹屾垚姣曚笟璁捐", stage: "姣曚笟鍑哄彛", due: dateOffset(-2), done: true, priority: "楂? },
-  { id: "t7", studentId: "s8", title: "鑰冪爺澶嶈瘯鍑嗗", stage: "姣曚笟鍑哄彛", due: dateOffset(9), done: false, priority: "楂? },
-  { id: "t8", studentId: "s9", title: "绛剧害灏变笟鍗曚綅", stage: "姣曚笟鍑哄彛", due: dateOffset(-10), done: true, priority: "楂? },
+  { id: "t1", studentId: "s1", title: "确定科研方向", stage: "项目奠基", due: dateOffset(5), done: false, priority: "中" },
+  { id: "t2", studentId: "s1", title: "申报大创项目", stage: "项目奠基", due: dateOffset(12), done: false, priority: "高" },
+  { id: "t3", studentId: "s4", title: "参加算法竞赛", stage: "竞赛冲刺", due: dateOffset(20), done: false, priority: "高" },
+  { id: "t4", studentId: "s5", title: "暑期实习准备", stage: "竞赛冲刺", due: dateOffset(8), done: false, priority: "中" },
+  { id: "t5", studentId: "s7", title: "投递简历", stage: "毕业出口", due: dateOffset(0), done: false, priority: "高" },
+  { id: "t6", studentId: "s7", title: "完成毕业设计", stage: "毕业出口", due: dateOffset(-2), done: true, priority: "高" },
+  { id: "t7", studentId: "s8", title: "考研复试准备", stage: "毕业出口", due: dateOffset(9), done: false, priority: "高" },
+  { id: "t8", studentId: "s9", title: "签约就业单位", stage: "毕业出口", due: dateOffset(-10), done: true, priority: "高" },
 ];
 
 const navItems: { id: Tab; icon: string; label: string }[] = [
-  { id: "overview", icon: "鈱?, label: "鎬昏" },
-  { id: "students", icon: "鈼?, label: "瀛︾敓妗ｆ" },
-  { id: "tasks", icon: "鉁?, label: "鎴愰暱浠诲姟" },
-  { id: "reports", icon: "鈻?, label: "缁熻鎶ヨ〃" },
-  { id: "settings", icon: "鈿?, label: "鏁版嵁绠＄悊" },
+  { id: "overview", icon: "⌂", label: "总览" },
+  { id: "students", icon: "◎", label: "学生档案" },
+  { id: "tasks", icon: "✓", label: "成长任务" },
+  { id: "reports", icon: "▥", label: "统计报表" },
+  { id: "settings", icon: "⚙", label: "数据管理" },
 ];
 
 export default function Workbench({ userName }: { userName: string }) {
@@ -81,12 +81,12 @@ export default function Workbench({ userName }: { userName: string }) {
   const [students, setStudents] = useState<Student[]>(() => readSaved()?.students || initialStudents);
   const [tasks, setTasks] = useState<Task[]>(() => readSaved()?.tasks || initialTasks);
   const [query, setQuery] = useState("");
-  const [grade, setGrade] = useState("鍏ㄩ儴");
+  const [grade, setGrade] = useState("全部");
   const [selected, setSelected] = useState<Student | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [notice, setNotice] = useState("");
   const [cloudReady, setCloudReady] = useState(false);
-  const [cloudStatus, setCloudStatus] = useState("姝ｅ湪杩炴帴浜戠");
+  const [cloudStatus, setCloudStatus] = useState("正在连接云端");
 
   useEffect(() => {
     fetch("/api/workspace")
@@ -98,11 +98,11 @@ export default function Workbench({ userName }: { userName: string }) {
         if (data.students?.length) setStudents(data.students);
         if (data.tasks) setTasks(data.tasks);
         setCloudReady(true);
-        setCloudStatus("浜戠鏁版嵁宸插悓姝?);
+        setCloudStatus("云端数据已同步");
       })
       .catch(() => {
         setCloudReady(true);
-        setCloudStatus("棣栨浣跨敤锛屾鍦ㄥ垱寤轰簯绔。妗?);
+        setCloudStatus("首次使用，正在创建云端档案");
       });
   }, []);
 
@@ -116,22 +116,22 @@ export default function Workbench({ userName }: { userName: string }) {
       }).then((response) => {
         if (!response.ok) throw new Error("save failed");
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ students, tasks }));
-        setCloudStatus("浜戠鏁版嵁宸插悓姝?);
-      }).catch(() => setCloudStatus("浜戠鍚屾鏆傛椂澶辫触"));
+        setCloudStatus("云端数据已同步");
+      }).catch(() => setCloudStatus("云端同步暂时失败"));
     }, 450);
     return () => window.clearTimeout(timer);
   }, [students, tasks, cloudReady]);
 
   const filtered = useMemo(
     () => students.filter((s) =>
-      (grade === "鍏ㄩ儴" || s.grade === grade) &&
+      (grade === "全部" || s.grade === grade) &&
       `${s.name}${s.studentNo}${s.major}`.toLowerCase().includes(query.toLowerCase())),
     [students, query, grade],
   );
   const alerts = students.filter((s) => s.focus || s.failed > 0 || s.score < 70);
   const openTasks = tasks.filter((t) => !t.done);
   const completion = tasks.length ? Math.round(tasks.filter((t) => t.done).length / tasks.length * 100) : 0;
-  const studentName = (id: string) => students.find((s) => s.id === id)?.name || "鏈煡瀛︾敓";
+  const studentName = (id: string) => students.find((s) => s.id === id)?.name || "未知学生";
   const studentTaskProgress = (id: string) => {
     const own = tasks.filter((t) => t.studentId === id);
     return { done: own.filter((t) => t.done).length, total: own.length };
@@ -148,9 +148,9 @@ export default function Workbench({ userName }: { userName: string }) {
       id: crypto.randomUUID(),
       name,
       studentNo: String(form.get("studentNo") || ""),
-      grade: String(form.get("grade") || "澶т竴"),
+      grade: String(form.get("grade") || "大一"),
       major: String(form.get("major") || ""),
-      direction: String(form.get("direction") || "鏈‘瀹?),
+      direction: String(form.get("direction") || "未确定"),
       score: Number(form.get("score") || 0),
       failed: 0,
       examTotal: Number(form.get("examTotal") || 0),
@@ -158,10 +158,10 @@ export default function Workbench({ userName }: { userName: string }) {
       runTarget: 10,
       attendanceIssues: 0,
       focus: false,
-      wellbeing: "姝ｅ父",
+      wellbeing: "正常",
     }]);
     setShowAdd(false);
-    toast("瀛︾敓妗ｆ宸叉坊鍔?);
+    toast("学生档案已添加");
   };
 
   const exportData = () => {
@@ -169,16 +169,16 @@ export default function Workbench({ userName }: { userName: string }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `涓€鐢熶竴绛栨暟鎹浠絖${dateOffset(0)}.json`;
+    a.download = `一生一策数据备份_${dateOffset(0)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    toast("鏁版嵁澶囦唤宸插鍑?);
+    toast("数据备份已导出");
   };
 
   return (
     <main className="shell">
       <aside className="sidebar">
-        <div className="brand"><span className="brandMark">绛?/span><span><b>涓€鐢熶竴绛?/b><small>鏅烘収宸ヤ綔鍙?/small></span></div>
+        <div className="brand"><span className="brandMark">策</span><span><b>一生一策</b><small>智慧工作台</small></span></div>
         <nav>
           {navItems.map((item) => (
             <button key={item.id} className={tab === item.id ? "navBtn active" : "navBtn"} onClick={() => setTab(item.id)}>
@@ -186,7 +186,7 @@ export default function Workbench({ userName }: { userName: string }) {
             </button>
           ))}
         </nav>
-        <div className="sideFoot"><span className="statusDot" />{cloudStatus}<small>{userName}</small><a href="/signout-with-chatgpt?return_to=/">閫€鍑虹櫥褰?/a></div>
+        <div className="sideFoot"><span className="statusDot" />{cloudStatus}<small>{userName}</small><a href="/signout-with-chatgpt?return_to=/">退出登录</a></div>
       </aside>
 
       <section className="workspace">
@@ -196,8 +196,8 @@ export default function Workbench({ userName }: { userName: string }) {
             <h1>{navItems.find((n) => n.id === tab)?.label}</h1>
           </div>
           <div className="topActions">
-            <div className="dateChip"><span>浠婂ぉ</span><b>{today.toLocaleDateString("zh-CN", { month: "long", day: "numeric", weekday: "short" })}</b></div>
-            <button className="primaryBtn" onClick={() => setShowAdd(true)}>锛?娣诲姞瀛︾敓</button>
+            <div className="dateChip"><span>今天</span><b>{today.toLocaleDateString("zh-CN", { month: "long", day: "numeric", weekday: "short" })}</b></div>
+            <button className="primaryBtn" onClick={() => setShowAdd(true)}>＋ 添加学生</button>
           </div>
         </header>
 
@@ -205,42 +205,42 @@ export default function Workbench({ userName }: { userName: string }) {
           <div className="page">
             <section className="hero">
               <div>
-                <span className="heroTag">杈呭鍛樺伐浣滈┚椹惰埍</span>
-                <h2>鐪嬭姣忎竴浣嶅鐢燂紝<br />璺熻繘姣忎竴涓叧閿妭鐐广€?/h2>
-                <p>鎶婂鐢熸。妗堛€佹垚闀夸换鍔°€侀闄╅璀﹀拰姣曚笟鍘诲悜鏀捐繘鍚屼竴寮犳竻鏅扮殑鍦板浘銆?/p>
+                <span className="heroTag">辅导员工作驾驶舱</span>
+                <h2>看见每一位学生，<br />跟进每一个关键节点。</h2>
+                <p>把学生档案、成长任务、风险预警和毕业去向放进同一张清晰的地图。</p>
               </div>
               <div className="heroProgress">
-                <div className="ring" style={{ "--progress": `${completion * 3.6}deg` } as React.CSSProperties}><span><b>{completion}%</b><small>浠诲姟瀹屾垚鐜?/small></span></div>
+                <div className="ring" style={{ "--progress": `${completion * 3.6}deg` } as React.CSSProperties}><span><b>{completion}%</b><small>任务完成率</small></span></div>
               </div>
             </section>
 
             <section className="kpiGrid">
-              <article className="kpiCard"><span className="kpiIcon mint">浜?/span><div><small>鍦ㄧ瀛︾敓</small><strong>{students.length}</strong><em>瑕嗙洊 3 涓勾绾?/em></div></article>
-              <article className="kpiCard"><span className="kpiIcon amber">!</span><div><small>閲嶇偣鍏虫敞</small><strong>{alerts.length}</strong><em className="warnText">寤鸿鏈懆璺熻繘</em></div></article>
-              <article className="kpiCard"><span className="kpiIcon blue">鉁?/span><div><small>杩涜涓换鍔?/small><strong>{openTasks.length}</strong><em>鍏?{tasks.length} 椤逛换鍔?/em></div></article>
-              <article className="kpiCard"><span className="kpiIcon coral">鈱?/span><div><small>姣曚笟钀藉疄鐜?/small><strong>67<sup>%</sup></strong><em>杈冧笂鍛?+8%</em></div></article>
+              <article className="kpiCard"><span className="kpiIcon mint">人</span><div><small>在管学生</small><strong>{students.length}</strong><em>覆盖 3 个年级</em></div></article>
+              <article className="kpiCard"><span className="kpiIcon amber">!</span><div><small>重点关注</small><strong>{alerts.length}</strong><em className="warnText">建议本周跟进</em></div></article>
+              <article className="kpiCard"><span className="kpiIcon blue">✓</span><div><small>进行中任务</small><strong>{openTasks.length}</strong><em>共 {tasks.length} 项任务</em></div></article>
+              <article className="kpiCard"><span className="kpiIcon coral">⌁</span><div><small>毕业落实率</small><strong>67<sup>%</sup></strong><em>较上周 +8%</em></div></article>
             </section>
 
             <section className="contentGrid">
               <article className="panel">
-                <div className="panelHead"><div><span className="sectionIndex">01</span><h3>閲嶇偣鍏虫敞</h3></div><button onClick={() => setTab("students")}>鏌ョ湅鍏ㄩ儴 鈫?/button></div>
+                <div className="panelHead"><div><span className="sectionIndex">01</span><h3>重点关注</h3></div><button onClick={() => setTab("students")}>查看全部 →</button></div>
                 <div className="alertList">
                   {alerts.slice(0, 4).map((s) => (
                     <button className="alertRow" key={s.id} onClick={() => setSelected(s)}>
                       <span className="avatar">{s.name.slice(-2)}</span>
-                      <span className="alertMain"><b>{s.name}</b><small>{s.grade} 路 {s.major}</small></span>
-                      <span className="alertReason">{s.failed > 0 ? `${s.failed} 闂ㄦ寕绉慲 : s.wellbeing}</span>
-                      <span className="chevron">鈥?/span>
+                      <span className="alertMain"><b>{s.name}</b><small>{s.grade} · {s.major}</small></span>
+                      <span className="alertReason">{s.failed > 0 ? `${s.failed} 门挂科` : s.wellbeing}</span>
+                      <span className="chevron">›</span>
                     </button>
                   ))}
                 </div>
               </article>
               <article className="panel">
-                <div className="panelHead"><div><span className="sectionIndex">02</span><h3>杩戞湡鑺傜偣</h3></div><button onClick={() => setTab("tasks")}>浠诲姟涓績 鈫?/button></div>
+                <div className="panelHead"><div><span className="sectionIndex">02</span><h3>近期节点</h3></div><button onClick={() => setTab("tasks")}>任务中心 →</button></div>
                 <div className="timeline">
                   {openTasks.slice(0, 5).map((t) => {
                     const days = Math.ceil((new Date(t.due).getTime() - new Date(dateOffset(0)).getTime()) / 86400000);
-                    return <div className="timeRow" key={t.id}><span className={days <= 3 ? "timeDot urgent" : "timeDot"} /><div><b>{t.title}</b><small>{studentName(t.studentId)} 路 {t.stage}</small></div><time>{days < 0 ? `閫炬湡 ${-days} 澶ー : days === 0 ? "浠婂ぉ" : `${days} 澶╁悗`}</time></div>;
+                    return <div className="timeRow" key={t.id}><span className={days <= 3 ? "timeDot urgent" : "timeDot"} /><div><b>{t.title}</b><small>{studentName(t.studentId)} · {t.stage}</small></div><time>{days < 0 ? `逾期 ${-days} 天` : days === 0 ? "今天" : `${days} 天后`}</time></div>;
                   })}
                 </div>
               </article>
@@ -251,25 +251,25 @@ export default function Workbench({ userName }: { userName: string }) {
         {tab === "students" && (
           <div className="page">
             <div className="toolbar">
-              <label className="search">鈱?input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="鎼滅储濮撳悕銆佸鍙锋垨鐝骇" /></label>
-              <div className="filterPills">{["鍏ㄩ儴", "澶т簩", "澶т笁", "澶у洓"].map((g) => <button key={g} className={grade === g ? "active" : ""} onClick={() => setGrade(g)}>{g}</button>)}</div>
-              <span className="resultCount">鍏?{filtered.length} 浜?/span>
+              <label className="search">⌕<input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="搜索姓名、学号或班级" /></label>
+              <div className="filterPills">{["全部", "大二", "大三", "大四"].map((g) => <button key={g} className={grade === g ? "active" : ""} onClick={() => setGrade(g)}>{g}</button>)}</div>
+              <span className="resultCount">共 {filtered.length} 人</span>
             </div>
             <div className="studentGrid">
               {filtered.map((s) => (
                 <button className="studentCard" key={s.id} onClick={() => setSelected(s)}>
-                  <span className={s.focus || s.failed ? "riskFlag show" : "riskFlag"}>閲嶇偣</span>
+                  <span className={s.focus || s.failed ? "riskFlag show" : "riskFlag"}>重点</span>
                   <span className="bigAvatar">{s.name.slice(-2)}</span>
                   <h3>{s.name}</h3><p>{s.studentNo}</p>
                   <div className="studentMeta"><span>{s.grade}</span><span>{s.major}</span></div>
                   <div className="studentChecks">
-                    <span className={s.failed ? "checkBad" : "checkGood"}><b>鑰冭瘯</b>{s.failed ? `${s.failed}闂ㄦ湭杩嘸 : "鍏ㄩ儴閫氳繃"}</span>
-                    <span className={s.runCompleted < s.runTarget ? "checkWarn" : "checkGood"}><b>鍋ュ悍璺?/b>{s.runCompleted}/{s.runTarget}娆?/span>
-                    <span className={s.attendanceIssues ? "checkBad" : "checkGood"}><b>鑰冨嫟</b>{s.attendanceIssues ? `${s.attendanceIssues}娆″紓甯竊 : "姝ｅ父"}</span>
-                    <span className="checkNeutral"><b>浠诲姟</b>{studentTaskProgress(s.id).done}/{studentTaskProgress(s.id).total}椤?/span>
+                    <span className={s.failed ? "checkBad" : "checkGood"}><b>考试</b>{s.failed ? `${s.failed}门未过` : "全部通过"}</span>
+                    <span className={s.runCompleted < s.runTarget ? "checkWarn" : "checkGood"}><b>健康跑</b>{s.runCompleted}/{s.runTarget}次</span>
+                    <span className={s.attendanceIssues ? "checkBad" : "checkGood"}><b>考勤</b>{s.attendanceIssues ? `${s.attendanceIssues}次异常` : "正常"}</span>
+                    <span className="checkNeutral"><b>任务</b>{studentTaskProgress(s.id).done}/{studentTaskProgress(s.id).total}项</span>
                   </div>
-                  <div className="scoreLine"><span>鍔犳潈鍧囧垎</span><b>{s.score}</b></div>
-                  <div className="cardFoot"><span>{s.direction}</span><span>鏌ョ湅妗ｆ 鈫?/span></div>
+                  <div className="scoreLine"><span>加权均分</span><b>{s.score}</b></div>
+                  <div className="cardFoot"><span>{s.direction}</span><span>查看档案 →</span></div>
                 </button>
               ))}
             </div>
@@ -278,17 +278,17 @@ export default function Workbench({ userName }: { userName: string }) {
 
         {tab === "tasks" && (
           <div className="page">
-            <div className="taskSummary"><div><span>浠诲姟杩涘害</span><b>{tasks.filter(t => t.done).length} / {tasks.length}</b></div><div className="progressTrack"><i style={{ width: `${completion}%` }} /></div><strong>{completion}%</strong></div>
+            <div className="taskSummary"><div><span>任务进度</span><b>{tasks.filter(t => t.done).length} / {tasks.length}</b></div><div className="progressTrack"><i style={{ width: `${completion}%` }} /></div><strong>{completion}%</strong></div>
             <div className="taskBoard">
-              {["椤圭洰濂犲熀", "绔炶禌鍐插埡", "姣曚笟鍑哄彛"].map((stage) => (
+              {["项目奠基", "竞赛冲刺", "毕业出口"].map((stage) => (
                 <section className="taskColumn" key={stage}>
                   <header><h3>{stage}</h3><span>{tasks.filter(t => t.stage === stage).length}</span></header>
                   {tasks.filter(t => t.stage === stage).map((t) => (
                     <article className={t.done ? "taskCard done" : "taskCard"} key={t.id}>
-                      <div><span className={`priority p${t.priority}`}>{t.priority}浼樺厛绾?/span><time>{t.due}</time></div>
+                      <div><span className={`priority p${t.priority}`}>{t.priority}优先级</span><time>{t.due}</time></div>
                       <h4>{t.title}</h4><p>{studentName(t.studentId)}</p>
                       <button onClick={() => setTasks(prev => prev.map(x => x.id === t.id ? { ...x, done: !x.done } : x))}>
-                        <span>{t.done ? "鉁? : ""}</span>{t.done ? "宸插畬鎴? : "鏍囪瀹屾垚"}
+                        <span>{t.done ? "✓" : ""}</span>{t.done ? "已完成" : "标记完成"}
                       </button>
                     </article>
                   ))}
@@ -300,48 +300,47 @@ export default function Workbench({ userName }: { userName: string }) {
 
         {tab === "reports" && (
           <div className="page reportGrid">
-            <article className="panel reportWide"><div className="panelHead"><div><span className="sectionIndex">01</span><h3>骞寸骇鍒嗗竷</h3></div></div>
-              {["澶т簩", "澶т笁", "澶у洓"].map(g => { const n = students.filter(s => s.grade === g).length; return <div className="barRow" key={g}><span>{g}</span><div><i style={{ width: `${n / students.length * 100}%` }} /></div><b>{n} 浜?/b></div>; })}
+            <article className="panel reportWide"><div className="panelHead"><div><span className="sectionIndex">01</span><h3>年级分布</h3></div></div>
+              {["大二", "大三", "大四"].map(g => { const n = students.filter(s => s.grade === g).length; return <div className="barRow" key={g}><span>{g}</span><div><i style={{ width: `${n / students.length * 100}%` }} /></div><b>{n} 人</b></div>; })}
             </article>
-            <article className="panel"><div className="panelHead"><div><span className="sectionIndex">02</span><h3>鍙戝睍鏂瑰悜</h3></div></div>
-              <div className="donutWrap"><div className="directionDonut" /><div><p><i className="legend green" />鍗囧 <b>{students.filter(s => s.direction === "鍗囧").length}</b></p><p><i className="legend gold" />灏变笟 <b>{students.filter(s => s.direction === "灏变笟").length}</b></p></div></div>
+            <article className="panel"><div className="panelHead"><div><span className="sectionIndex">02</span><h3>发展方向</h3></div></div>
+              <div className="donutWrap"><div className="directionDonut" /><div><p><i className="legend green" />升学 <b>{students.filter(s => s.direction === "升学").length}</b></p><p><i className="legend gold" />就业 <b>{students.filter(s => s.direction === "就业").length}</b></p></div></div>
             </article>
-            <article className="panel reportWide"><div className="panelHead"><div><span className="sectionIndex">03</span><h3>椋庨櫓姒傝</h3></div></div>
-              <table><thead><tr><th>瀛︾敓</th><th>鑰冭瘯閫氳繃</th><th>鍋ュ悍璺?/th><th>鑰冨嫟寮傚父</th><th>浠诲姟杩涘睍</th><th>鍏虫敞浜嬮」</th></tr></thead><tbody>{alerts.map(s => { const p=studentTaskProgress(s.id); return <tr key={s.id}><td><b>{s.name}</b><small className="tableSub">{s.grade} 路 {s.major}</small></td><td>{s.examTotal-s.failed}/{s.examTotal}</td><td>{s.runCompleted}/{s.runTarget}</td><td>{s.attendanceIssues} 娆?/td><td>{p.done}/{p.total}</td><td><span className="riskTag">{s.wellbeing}</span></td></tr>})}</tbody></table>
+            <article className="panel reportWide"><div className="panelHead"><div><span className="sectionIndex">03</span><h3>风险概览</h3></div></div>
+              <table><thead><tr><th>学生</th><th>考试通过</th><th>健康跑</th><th>考勤异常</th><th>任务进展</th><th>关注事项</th></tr></thead><tbody>{alerts.map(s => { const p=studentTaskProgress(s.id); return <tr key={s.id}><td><b>{s.name}</b><small className="tableSub">{s.grade} · {s.major}</small></td><td>{s.examTotal-s.failed}/{s.examTotal}</td><td>{s.runCompleted}/{s.runTarget}</td><td>{s.attendanceIssues} 次</td><td>{p.done}/{p.total}</td><td><span className="riskTag">{s.wellbeing}</span></td></tr>})}</tbody></table>
             </article>
           </div>
         )}
 
         {tab === "settings" && (
           <div className="page settingsGrid">
-            <article className="panel dataCard"><span className="dataIcon">鈬?/span><h3>瀵煎嚭鏁版嵁澶囦唤</h3><p>灏嗗綋鍓嶅鐢熸。妗堜笌浠诲姟涓嬭浇涓?JSON 鏂囦欢锛屽缓璁畾鏈熷浠姐€?/p><button className="primaryBtn" onClick={exportData}>瀵煎嚭澶囦唤</button></article>
-            <article className="panel dataCard"><span className="dataIcon">鈫?/span><h3>鎭㈠绀轰緥鏁版嵁</h3><p>閲嶆柊杞藉叆婕旂ず鏁版嵁銆傛鎿嶄綔浼氳鐩栧綋鍓嶆祻瑙堝櫒鍐呯殑鏁版嵁銆?/p><button className="secondaryBtn" onClick={() => { if (confirm("纭畾瑕嗙洊褰撳墠鏁版嵁鍚楋紵")) { setStudents(initialStudents); setTasks(initialTasks); toast("绀轰緥鏁版嵁宸叉仮澶?); } }}>鎭㈠绀轰緥</button></article>
-            <article className="panel privacy"><h3>鍏充簬鏁版嵁瀛樺偍</h3><p>褰撳墠鐗堟湰鐨勬暟鎹繚瀛樺湪璁惧娴忚鍣ㄤ腑锛屼笉浼氳嚜鍔ㄤ笂浼犳湇鍔″櫒銆傚洜姝ゅ湪鎵嬫満鍜岀數鑴戜笂鍒嗗埆鎵撳紑鏃讹紝鏁版嵁涓嶄細鑷姩鍚屾銆傝嫢瑕佸疄鐜板绔疄鏃跺叡鐢紝闇€瑕佸湪姝ｅ紡閮ㄧ讲闃舵鎺ュ叆璐﹀彿鐧诲綍鍜屼簯鏁版嵁搴撱€?/p></article>
+            <article className="panel dataCard"><span className="dataIcon">⇩</span><h3>导出数据备份</h3><p>将当前学生档案与任务下载为 JSON 文件，建议定期备份。</p><button className="primaryBtn" onClick={exportData}>导出备份</button></article>
+            <article className="panel dataCard"><span className="dataIcon">↻</span><h3>恢复示例数据</h3><p>重新载入演示数据。此操作会覆盖当前浏览器内的数据。</p><button className="secondaryBtn" onClick={() => { if (confirm("确定覆盖当前数据吗？")) { setStudents(initialStudents); setTasks(initialTasks); toast("示例数据已恢复"); } }}>恢复示例</button></article>
+            <article className="panel privacy"><h3>关于数据存储</h3><p>当前版本的数据保存在设备浏览器中，不会自动上传服务器。因此在手机和电脑上分别打开时，数据不会自动同步。若要实现多端实时共用，需要在正式部署阶段接入账号登录和云数据库。</p></article>
           </div>
         )}
       </section>
 
       <nav className="mobileNav">{navItems.slice(0, 4).map(item => <button key={item.id} className={tab === item.id ? "active" : ""} onClick={() => setTab(item.id)}><span>{item.icon}</span>{item.label}</button>)}</nav>
 
-      {selected && <div className="modalMask" onClick={() => setSelected(null)}><article className="modal" onClick={(e) => e.stopPropagation()}><button className="modalClose" onClick={() => setSelected(null)}>脳</button>
-        <div className="profileHead"><span className="bigAvatar">{selected.name.slice(-2)}</span><div><span className="heroTag">{selected.grade}</span><h2>{selected.name}</h2><p>{selected.studentNo} 路 {selected.major}</p></div></div>
-        <div className="attentionTitle"><span className="sectionIndex">鏍稿績鍏虫敞</span><h3>瀛︾敓鐘舵€佸洓缁寸湅鏉?/h3></div>
+      {selected && <div className="modalMask" onClick={() => setSelected(null)}><article className="modal" onClick={(e) => e.stopPropagation()}><button className="modalClose" onClick={() => setSelected(null)}>×</button>
+        <div className="profileHead"><span className="bigAvatar">{selected.name.slice(-2)}</span><div><span className="heroTag">{selected.grade}</span><h2>{selected.name}</h2><p>{selected.studentNo} · {selected.major}</p></div></div>
+        <div className="attentionTitle"><span className="sectionIndex">核心关注</span><h3>学生状态四维看板</h3></div>
         <div className="attentionGrid">
-          <div className={selected.failed ? "attentionItem danger" : "attentionItem good"}><span>鍗?/span><small>鑰冭瘯閫氳繃鎯呭喌</small><b>{selected.examTotal-selected.failed} / {selected.examTotal} 闂?/b><em>{selected.failed ? `${selected.failed} 闂ㄥ緟澶勭悊` : "鍏ㄩ儴閫氳繃"}</em></div>
-          <div className={selected.runCompleted < selected.runTarget ? "attentionItem warning" : "attentionItem good"}><span>璺?/span><small>鏍″洯鍋ュ悍璺?/small><b>{selected.runCompleted} / {selected.runTarget} 娆?/b><em>{selected.runCompleted < selected.runTarget ? `杩樺樊 ${selected.runTarget-selected.runCompleted} 娆 : "宸茶揪鏍?}</em></div>
-          <div className={selected.attendanceIssues ? "attentionItem danger" : "attentionItem good"}><span>鍕?/span><small>鑰冨嫟寮傚父鎯呭喌</small><b>{selected.attendanceIssues} 娆?/b><em>{selected.attendanceIssues ? "闇€瑕佽窡杩涘鐞? : "鏈鏈熸甯?}</em></div>
-          <div className="attentionItem neutral"><span>椤?/span><small>椤圭洰 / 浠诲姟杩涘睍</small><b>{studentTaskProgress(selected.id).done} / {studentTaskProgress(selected.id).total} 椤?/b><em>{studentTaskProgress(selected.id).total ? `${Math.round(studentTaskProgress(selected.id).done/studentTaskProgress(selected.id).total*100)}% 宸插畬鎴恅 : "灏氭湭寤轰换鍔?}</em></div>
+          <div className={selected.failed ? "attentionItem danger" : "attentionItem good"}><span>卷</span><small>考试通过情况</small><b>{selected.examTotal-selected.failed} / {selected.examTotal} 门</b><em>{selected.failed ? `${selected.failed} 门待处理` : "全部通过"}</em></div>
+          <div className={selected.runCompleted < selected.runTarget ? "attentionItem warning" : "attentionItem good"}><span>跑</span><small>校园健康跑</small><b>{selected.runCompleted} / {selected.runTarget} 次</b><em>{selected.runCompleted < selected.runTarget ? `还差 ${selected.runTarget-selected.runCompleted} 次` : "已达标"}</em></div>
+          <div className={selected.attendanceIssues ? "attentionItem danger" : "attentionItem good"}><span>勤</span><small>考勤异常情况</small><b>{selected.attendanceIssues} 次</b><em>{selected.attendanceIssues ? "需要跟进处理" : "本学期正常"}</em></div>
+          <div className="attentionItem neutral"><span>项</span><small>项目 / 任务进展</small><b>{studentTaskProgress(selected.id).done} / {studentTaskProgress(selected.id).total} 项</b><em>{studentTaskProgress(selected.id).total ? `${Math.round(studentTaskProgress(selected.id).done/studentTaskProgress(selected.id).total*100)}% 已完成` : "尚未建任务"}</em></div>
         </div>
-        <div className="profileGrid"><div><small>鍔犳潈鍧囧垎</small><b>{selected.score}</b></div><div><small>鍙戝睍鏂瑰悜</small><b>{selected.direction}</b></div><div><small>韬績鐘舵€?/small><b>{selected.wellbeing}</b></div><div><small>鍏虫敞鐘舵€?/small><b>{selected.focus ? "閲嶇偣鍏虫敞" : "甯歌璺熻繘"}</b></div></div>
-        <div className="profileSection"><h3>韬績鐘舵€?/h3><p>{selected.wellbeing}</p></div>
-        <div className="profileSection"><h3>鎴愰暱浠诲姟</h3>{tasks.filter(t => t.studentId === selected.id).map(t => <p key={t.id} className="miniTask"><span>{t.done ? "鉁? : "路"}</span>{t.title}<time>{t.due}</time></p>)}</div>
+        <div className="profileGrid"><div><small>加权均分</small><b>{selected.score}</b></div><div><small>发展方向</small><b>{selected.direction}</b></div><div><small>身心状态</small><b>{selected.wellbeing}</b></div><div><small>关注状态</small><b>{selected.focus ? "重点关注" : "常规跟进"}</b></div></div>
+        <div className="profileSection"><h3>身心状态</h3><p>{selected.wellbeing}</p></div>
+        <div className="profileSection"><h3>成长任务</h3>{tasks.filter(t => t.studentId === selected.id).map(t => <p key={t.id} className="miniTask"><span>{t.done ? "✓" : "·"}</span>{t.title}<time>{t.due}</time></p>)}</div>
       </article></div>}
 
-      {showAdd && <div className="modalMask" onClick={() => setShowAdd(false)}><form className="modal addForm" action={addStudent} onClick={(e) => e.stopPropagation()}><button type="button" className="modalClose" onClick={() => setShowAdd(false)}>脳</button><p className="eyebrow">NEW PROFILE</p><h2>娣诲姞瀛︾敓妗ｆ</h2>
-        <div className="formGrid"><label>濮撳悕<input name="name" required placeholder="璇疯緭鍏ュ鍚? /></label><label>瀛﹀彿<input name="studentNo" placeholder="璇疯緭鍏ュ鍙? /></label><label>骞寸骇<select name="grade"><option>澶т竴</option><option>澶т簩</option><option>澶т笁</option><option>澶у洓</option></select></label><label>涓撲笟鐝骇<input name="major" placeholder="濡傦細杞欢宸ョ▼1鐝? /></label><label>鍙戝睍鏂瑰悜<select name="direction"><option>鏈‘瀹?/option><option>鍗囧</option><option>灏变笟</option><option>鍒涗笟</option></select></label><label>鍔犳潈鍧囧垎<input name="score" type="number" min="0" max="100" /></label><label>鏈鏈熻€冭瘯绉戠洰鏁?input name="examTotal" type="number" min="0" placeholder="濡傦細12" /></label></div>
-        <button className="primaryBtn submitBtn">淇濆瓨妗ｆ</button></form></div>}
+      {showAdd && <div className="modalMask" onClick={() => setShowAdd(false)}><form className="modal addForm" action={addStudent} onClick={(e) => e.stopPropagation()}><button type="button" className="modalClose" onClick={() => setShowAdd(false)}>×</button><p className="eyebrow">NEW PROFILE</p><h2>添加学生档案</h2>
+        <div className="formGrid"><label>姓名<input name="name" required placeholder="请输入姓名" /></label><label>学号<input name="studentNo" placeholder="请输入学号" /></label><label>年级<select name="grade"><option>大一</option><option>大二</option><option>大三</option><option>大四</option></select></label><label>专业班级<input name="major" placeholder="如：软件工程1班" /></label><label>发展方向<select name="direction"><option>未确定</option><option>升学</option><option>就业</option><option>创业</option></select></label><label>加权均分<input name="score" type="number" min="0" max="100" /></label><label>本学期考试科目数<input name="examTotal" type="number" min="0" placeholder="如：12" /></label></div>
+        <button className="primaryBtn submitBtn">保存档案</button></form></div>}
       <div className={notice ? "toast show" : "toast"}>{notice}</div>
     </main>
   );
 }
-

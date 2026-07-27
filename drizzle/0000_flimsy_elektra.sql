@@ -3,4 +3,3 @@ CREATE TABLE `workspaces` (
 	`payload` text NOT NULL,
 	`updated_at` text NOT NULL
 );
-

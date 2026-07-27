@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "涓€鐢熶竴绛?路 鏅烘収宸ヤ綔鍙?,
-  description: "闈㈠悜杈呭鍛樼殑瀛︾敓鎴愰暱妗ｆ銆佷换鍔¤窡杩涖€侀闄╅璀︿笌缁熻宸ヤ綔鍙般€?,
+  title: "一生一策 · 智慧工作台",
+  description: "面向辅导员的学生成长档案、任务跟进、风险预警与统计工作台。",
   icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="zh-CN"><body>{children}</body></html>;
 }
-

@@ -41,4 +41,3 @@ export async function PUT(request: Request) {
   `).bind(user.email, JSON.stringify({ students: body.students, tasks: body.tasks })).run();
   return Response.json({ ok: true });
 }
-
